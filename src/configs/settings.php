@@ -14,8 +14,8 @@ return [
       'level' => \Monolog\Logger::DEBUG,
     ],
     'constants' => [
-      'base_url' => 'http://localhost:8080/',
-      'static_url' => 'http://localhost:8080/public/',
+      'base_url' => 'http://localhost:3000/',
+      'static_url' => 'http://localhost:3000/public/',
       'ambiente_static' => 'desarrollo',
       'ambiente_csrf' => 'activo',
       'ambiente_session' => 'activo',
@@ -26,6 +26,13 @@ return [
       'csrf' => [
         'secret' => 'PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L',
         'key' => 'csrf_val'
+      ],
+      'oauth' => [
+        'google' => [
+          'client_id' => '1044701093820-jam7g5carn4nghkkhqr75ustq0l5vrum.apps.googleusercontent.com',
+          'client_secret' => '_gRRhQeMc6HKcCWum1hprRhy',
+          'url' => 'https://oauth2.googleapis.com/token',
+        ],
       ],
     ],
   ],

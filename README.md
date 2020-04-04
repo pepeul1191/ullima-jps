@@ -19,3 +19,4 @@ Cambiar en 'src/configs/settings.php' el valor de llave 'ambiente_csrf' y 'ambie
 Fuentes:
 
 + https://github.com/pepeul1191/coa-slim
++ https://github.com/Kong/unirest-php

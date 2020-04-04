@@ -13,13 +13,17 @@
   <!--MESSAGE-->
   <p class="<?php echo $message_color; ?> message" style="margin-top:10px;" id="login-message"><?php echo $message; ?></p>
   <!--BUTTON -->
-  <button class="btn btn-lg btn-primary btn-block" type="submit">
+  <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 0px;">
     Ingresar
+  </button>
+  <button class="btn btn-lg btn-success btn-block" onclick="goGoogle()">
+    <i class="fa fa-google" aria-hidden="true"></i>
+    Ingresar con Google
   </button>
   <!--FooTER LOGIN NAV -->
   <div class="link-login">
     <a class="" href="/login/sign_in">
-      Ingresar ULima
+      Registrarse
     </a>
     <a id="forgotpassword" class="pull-right" href="/login/reset_password">
       Olvidó su Contraseña
@@ -27,3 +31,10 @@
   </div>
   <p class="mt-5 mb-3 text-muted">Powered By <a href="http://softweb.pe/"> Softtware Web Perú</a> © 2017-2018</p>
 </form>
+
+<script type="text/javascript">
+  function goGoogle(){
+    var url = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=1044701093820-jam7g5carn4nghkkhqr75ustq0l5vrum.apps.googleusercontent.com&redirect_uri=' + BASE_URL + 'oauth/callback?origin=google&scope=profile email';
+    window.location.replace(url);
+  }
+</script>
