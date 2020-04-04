@@ -36,11 +36,8 @@ $container['notFoundHandler'] = function ($c) {
     }else{
       $rpta = json_encode(
         [
-          'tipo_mensaje' => 'error',
-          'mensaje' => [
-            'Recurso no disponible',
-            'Error 404'
-          ]
+          'Recurso no disponible',
+          'Error 404',
         ]
       );
       return $c['response']

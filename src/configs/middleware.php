@@ -17,11 +17,8 @@ $mw_ambiente_csrf = function ($request, $response, $next) {
     $status = 500;
     $rpta = json_encode(
       [
-        'tipo_mensaje' => 'error',
-        'mensaje' => [
-          'No se puede acceder al recurso',
-          'CSRF Token key error'
-        ]
+        'No se puede acceder al recurso',
+        'CSRF Token key error',
       ]
     );
     return $response->withStatus($status)->write($rpta);
