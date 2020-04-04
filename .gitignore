@@ -9,3 +9,18 @@ public/dist
 .DS_Store
 *.ods#
 Gemfile.lock
+
+# IDE Files
+#-------------------------
+/nbproject/
+.idea/*
+
+## webpack and bower
+bower_components
+dist
+node_modules
+*.ods#
+public/uploads
+public/templates
+npm-debug.log
+package-lock.json
