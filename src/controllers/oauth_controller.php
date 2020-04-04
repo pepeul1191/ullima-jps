@@ -32,6 +32,7 @@ class OAuthController extends \Configs\Controller
     $_SESSION['email'] = $r_user->body->email;
     $_SESSION['name'] = $r_user->body->name;
     $_SESSION['picture'] = $r_user->body->picture;
+    $_SESSION['profile'] = 'student';
     $_SESSION['state'] = 'active';
     $_SESSION['time'] = date('Y-m-d H:i:s');
   }

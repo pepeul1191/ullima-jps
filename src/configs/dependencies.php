@@ -10,8 +10,12 @@ $container['renderer'] = function ($c) {
 $container['logger'] = function ($c) {
   $settings = $c->get('settings')['logger'];
   $logger = new Monolog\Logger($settings['name']);
-  $logger->pushProcessor(new Monolog\Processor\UidProcessor());
-  $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+  $logger->pushProcessor(
+    new Monolog\Processor\UidProcessor()
+  );
+  $logger->pushHandler(
+    new Monolog\Handler\StreamHandler($settings['path'], $settings['level'])
+  );
   return $logger;
 };
 
@@ -32,7 +36,9 @@ $container['notFoundHandler'] = function ($c) {
   return function ($request, $response) use ($c) {
     $method = $request->getMethod();
     if($method == 'GET'){
-      return $response->withRedirect($c->get('settings')['constants']['base_url'] . 'error/access/404');
+      return $response->withRedirect(
+        $c->get('settings')['constants']['base_url'] . 'error/access/404'
+      );
     }else{
       $rpta = json_encode(
         [

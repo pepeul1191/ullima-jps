@@ -18,7 +18,8 @@ class Controller
   public function load_css($array_css){
     $rpta = '';
     foreach ($array_css as &$css) {
-      $temp = '<link rel="stylesheet" type="text/css" href="' . $this->constants['static_url'] . $css . '.css"/>';
+      $temp = '<link rel="stylesheet" type="text/css" href="' . 
+        $this->constants['static_url'] . $css . '.css"/>';
       $rpta = $rpta . $temp;
     }
     return $rpta;
@@ -27,7 +28,8 @@ class Controller
   function load_js($array_js){
     $rpta = '';
     foreach ($array_js as &$js) {
-      $temp = '<script src="' . $this->constants['static_url'] . $js . '.js" type="text/javascript"></script>';
+      $temp = '<script src="' . 
+        $this->constants['static_url'] . $js . '.js" type="text/javascript"></script>';
       $rpta = $rpta . $temp;
     }
     return $rpta;

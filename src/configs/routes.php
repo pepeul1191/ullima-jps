@@ -21,6 +21,8 @@ $app->get('/error/access/{numero}', ErrorController::class . ':access');
 $app->get('/oauth/callback', OAuthController::class . ':callback');
 // login
 $app->get('/login', LoginController::class . ':index')->add($mw_session_false);
-$app->post('/login/acceder', LoginController::class . ':acceder');
+$app->post('/login/sign_in', LoginController::class . ':sign_in');
+$app->get('/login/sign_up', LoginController::class . ':sign_up');
+$app->post('/login/sign_up', LoginController::class . ':sign_up');
 $app->get('/login/ver', LoginController::class . ':ver');
 $app->get('/login/cerrar', LoginController::class . ':cerrar');
