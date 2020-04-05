@@ -26,15 +26,23 @@ class OAuthController extends \Configs\Controller
         'access_token' => $r_oauth->body->access_token,
       ) // body
     );
-    // set SESSION
-    $_SESSION['lang'] = $r_user->body->locale;
-    $_SESSION['user_id'] = $r_user->body->id;
-    $_SESSION['email'] = $r_user->body->email;
-    $_SESSION['name'] = $r_user->body->name;
-    $_SESSION['picture'] = $r_user->body->picture;
-    $_SESSION['profile'] = 'student';
-    $_SESSION['state'] = 'active';
-    $_SESSION['time'] = date('Y-m-d H:i:s');
+    // check if user is a student
+    # TODO 
+    if(true){
+      // insert data to students table
+      # TODO
+      // set SESSION
+      $_SESSION['lang'] = $r_user->body->locale;
+      $_SESSION['user_id'] = $r_user->body->id;
+      $_SESSION['email'] = $r_user->body->email;
+      $_SESSION['name'] = $r_user->body->name;
+      $_SESSION['picture'] = $r_user->body->picture;
+      $_SESSION['profile'] = 'student';
+      $_SESSION['state'] = 'active';
+      $_SESSION['time'] = date('Y-m-d H:i:s');
+    }else{
+      return false;
+    }
   }
 
   public function callback($request, $response, $args) {
@@ -43,7 +51,7 @@ class OAuthController extends \Configs\Controller
       $this->google($request, $this->constants);
     }
     $response = $response->withRedirect(
-      $this->constants['base_url']
+      $this->constants['base_url'] . 'login'
     );
     return $response;
   }

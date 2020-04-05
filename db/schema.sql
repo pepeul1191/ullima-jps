@@ -15,7 +15,57 @@ CREATE TABLE 'logs' (
   'user_id'	INTEGER,
   FOREIGN KEY(`user_id`) REFERENCES 'users' ( 'id' ) ON DELETE CASCADE
 );
+CREATE TABLE 'students' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	'name'	VARCHAR(45) NOT NULL,
+	'code'	INTEGER NOT NULL,
+  'email'	VARCHAR(40) NOT NULL,
+  'picture'	VARCHAR(110) NOT NULL
+);
+CREATE TABLE 'teachers' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	'name'	VARCHAR(45) NOT NULL,
+	'code'	INTEGER NOT NULL,
+  'email'	VARCHAR(40) NOT NULL,
+  'picture'	VARCHAR(110) NOT NULL
+);
+CREATE TABLE 'courses' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	'name'	VARCHAR(45) NOT NULL,
+	'code'	INTEGER NOT NULL
+);
+CREATE TABLE 'sections' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  'code' INTEGER NOT NULL,
+	'period'	VARCHAR(6) NOT NULL,
+  'teacher_id' INTEGER NOT NULL,
+  'student_id' INTEGER NOT NULL,
+  FOREIGN KEY(`teacher_id`) REFERENCES 'teachers' ( 'id' ) ON DELETE CASCADE,
+  FOREIGN KEY(`student_id`) REFERENCES 'students' ( 'id' ) ON DELETE CASCADE
+);
+CREATE TABLE 'sections_students' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  'tw_user' VARCHAR(30) NOT NULL,
+	'tw_pass'	VARCHAR(30) NOT NULL,
+  'sectionr_id' INTEGER NOT NULL,
+  'student_id' INTEGER NOT NULL,
+  FOREIGN KEY(`sectionr_id`) REFERENCES 'sectionrs' ( 'id' ) ON DELETE CASCADE,
+  FOREIGN KEY(`student_id`) REFERENCES 'students' ( 'id' ) ON DELETE CASCADE
+);
+CREATE TABLE 'logs_students' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  'time' DATETIME NOT NULL,
+	'action'	VARCHAR(45) NOT NULL,
+  'student_id'	INTEGER,
+  FOREIGN KEY(`student_id`) REFERENCES 'students' ( 'id' ) ON DELETE CASCADE
+);
 -- Dbmate schema migrations
 INSERT INTO schema_migrations (version) VALUES
   ('20200405000053'),
-  ('20200405000659');
+  ('20200405000659'),
+  ('20200405013648'),
+  ('20200405013726'),
+  ('20200405013732'),
+  ('20200405013738'),
+  ('20200405013744'),
+  ('20200405014441');
