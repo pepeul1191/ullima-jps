@@ -5,7 +5,7 @@ CREATE TABLE 'teachers' (
 	'name'	VARCHAR(45) NOT NULL,
 	'code'	INTEGER NOT NULL,
   'email'	VARCHAR(40) NOT NULL,
-  'picture'	VARCHAR(110) NOT NULL
+  'picture'	VARCHAR(150) NOT NULL
 );
 
 -- migrate:down

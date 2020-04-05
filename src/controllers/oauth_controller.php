@@ -4,7 +4,7 @@ namespace Controller;
 
 class OAuthController extends \Configs\Controller
 {
-  private function google($request, $constants) { 
+  private function google($request, $response, $constants) { 
     $code = $request->getParam('code');
     // get oauth google token
     $r_oauth = \Unirest\Request::post(
@@ -27,10 +27,18 @@ class OAuthController extends \Configs\Controller
       ) // body
     );
     // check if user is a student
-    # TODO 
-    if(true){
-      // insert data to students table
-      # TODO
+    $student = \Model::factory('\Models\Student', 'app')
+      ->where('email', $r_user->body->email)
+      ->find_one();
+    if($student != false){
+      // insert data to students table if is first log
+      if($student->name == ''){
+        $code = explode('@',$r_user->body->email);
+        $student->name = $r_user->body->name;
+        $student->code = $code[0];
+        $student->picture = $r_user->body->picture;
+        $student->save();
+      }
       // set SESSION
       $_SESSION['lang'] = $r_user->body->locale;
       $_SESSION['user_id'] = $r_user->body->id;
@@ -40,19 +48,22 @@ class OAuthController extends \Configs\Controller
       $_SESSION['profile'] = 'student';
       $_SESSION['state'] = 'active';
       $_SESSION['time'] = date('Y-m-d H:i:s');
+      $response = $response->withRedirect(
+        $this->constants['base_url']
+      );
     }else{
-      return false;
+      $response = $response->withRedirect(
+        $this->constants['base_url'] . 'login?message=student-not-exist'
+      );
     }
+    return $response;
   }
 
   public function callback($request, $response, $args) {
     $origin = $request->getParam('origin');
     if($origin == 'google'){
-      $this->google($request, $this->constants);
+      $response = $this->google($request, $response, $this->constants);
     }
-    $response = $response->withRedirect(
-      $this->constants['base_url'] . 'login'
-    );
     return $response;
   }
 }
