@@ -15,9 +15,8 @@ class HomeController extends \Configs\Controller
     $view = $this->container->view;
     if($_SESSION['profile'] == 'student'){
       $locals['student'] = \Model::factory('\Models\Student', 'app')
-      ->where('email', $_SESSION['email'])
-      ->find_one(); 
-      $locals['logout_url'] = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=' . $this->constants['oauth']['google']['client_id'] . '&redirect_uri=' . $this->constants['base_url'] . 'oauth/callback?origin=google&scope=profile email';
+        ->where('email', $_SESSION['email'])
+        ->find_one();
       return $view($response, 'app', 'home/' . $_SESSION['profile'] . '.phtml', $locals);
     }elseif($_SESSION['profile'] == 'teacher'){
 

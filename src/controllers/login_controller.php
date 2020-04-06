@@ -55,4 +55,22 @@ class LoginController extends \Configs\Controller
     $view = $this->container->view;
     return $view($response, 'blank', 'login/password.phtml', $locals);
   }
+
+  public function sign_out($request, $response, $args) {
+    // build logout url
+    $logout_url = $this->constants['base_url'];
+    if($_SESSION['profile'] == 'student'){
+      // url for student
+      
+      $logout_url = 
+        'https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . 
+        $this->constants['base_url'] . 'login';
+    }else{
+      // url for teacher
+      $logout_url = $this->constants['base_url'] . 'login';
+    }
+    // destroy session
+    session_destroy();
+    return $response->withRedirect($logout_url);
+  }
 }
