@@ -4,8 +4,10 @@
   </div>
   <div class="col-md-6">
     <h5 style="margin-bottom:15px">Información del Alumno</h5>
+    <div class="alert" ></div>
     <div class="row">
       <div class="col-md-2">
+        <input type="hidden" id="txtId" class="d-none" value="<?php echo $student->id; ?>" />
         <div class="form-group">
           <label for="txtCode">Código</label>
           <input type="text" class="form-control" id="txtCode" aria-describedby="txtCodeHelp" disabled placeholder="Ingrese nombre" value="<?php echo $student->code; ?>">
@@ -30,11 +32,12 @@
   </div>
   <div class="col-md-6">
     <h5 style="margin-bottom:15px">Información de Accesos Remotos</h5>
+    <div class="alert" id="message"></div>
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
           <label for="txtTWId">Teamviewer ID</label>
-          <input type="text" class="form-control" id="txtTWId" aria-describedby="txtTWIdHelp" placeholder="Ingrese su Teamviewer ID" value="<?php echo $student->tw_user; ?>">
+          <input type="text" class="form-control" id="txtTWId" aria-describedby="txtTWIdHelp" placeholder="Ingrese su Teamviewer ID" value="<?php echo $student->tw_id; ?>">
           <small id="txtTWIdHelp" class="form-text"></small>
         </div>
       </div>
@@ -58,6 +61,69 @@
 </div>
 <script type="text/javascript">
   function guardar(){
-    
+    var student_id = $('#txtId').val();
+    var tw_id = $('#txtTWId').val();
+    var tw_pass = $('#txtTWPass').val();
+    var procced = true;
+    // validate Teamviewer ID
+    if(tw_id == ''){
+      procced = false;
+      $('#txtTWId').removeClass('alert-success');
+      $('#txtTWId').removeClass('alert-warning');
+      $('#txtTWId').addClass('alert-danger');
+      $('#txtTWId').html('Debe de ingresar su Id');
+    }else{
+      $('#txtTWId').removeClass('alert-success');
+      $('#txtTWId').removeClass('alert-warning');
+      $('#txtTWId').removeClass('alert-danger');
+      $('#txtTWId').html('');
+    }
+    // validate Teamviewer Password
+    if(tw_pass == ''){
+      procced = false;
+      $('#txtTWPass').removeClass('alert-success');
+      $('#txtTWPass').removeClass('alert-warning');
+      $('#txtTWPass').addClass('alert-danger');
+      $('#txtTWPass').html('Debe de ingresar su contraseña');
+    }else{
+      $('#txtTWPass').removeClass('alert-success');
+      $('#txtTWPass').removeClass('alert-warning');
+      $('#txtTWPass').removeClass('alert-danger');
+      $('#txtTWPass').html('');
+    }
+    // send AJAX
+    if(procced){
+      $.ajax({
+        type: 'POST',
+        url: BASE_URL + 'student/update_teamviewer',
+        data: {
+          id: student_id,
+          tw_id: tw_id,
+          tw_pass: tw_pass,
+        },
+        headers: {
+          [CSRF_KEY]: CSRF,
+        },
+        async: false,
+        success: function(data){
+          $('#message').removeClass('text-warning');
+          $('#message').removeClass('text-danger');
+          $('#message').addClass('text-success');
+          $('#message').html('Información de conexión de Teamviewer actualizada');
+        },
+        error: function(xhr, status, error){
+          console.error(error);
+          $('#message').removeClass('text-warning');
+				  $('#message').removeClass('text-success');
+          $('#message').addClass('text-danger');
+          $('#message').html('Ocurrió un error en actualizar la información de conexión de Teamviewer');
+        }
+      });
+    }else{
+      $('#message').html('Debe llenar los campos requeridos');
+      $('#message').removeClass('text-danger');
+			$('#message').removeClass('text-success');
+      $('#message').addClass('text-warning');
+    }
   }
 </script>

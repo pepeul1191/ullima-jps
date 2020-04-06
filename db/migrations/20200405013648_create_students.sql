@@ -6,7 +6,7 @@ CREATE TABLE 'students' (
 	'code'	INTEGER NOT NULL,
   'email'	VARCHAR(40) NOT NULL,
   'picture'	VARCHAR(150) NOT NULL,
-  'tw_user' VARCHAR(30) NOT NULL,
+  'tw_id' VARCHAR(30) NOT NULL,
 	'tw_pass'	VARCHAR(30) NOT NULL
 );
 

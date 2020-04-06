@@ -7,6 +7,7 @@ use Controller\ErrorController;
 use Controller\LoginController;
 use Controller\OAuthController;
 use Controller\HomeController;
+use Controller\StudentController;
 
 // Routes
 $app->get('/demo/[{name}]', function (Request $request, Response $response, array $args) {
@@ -31,3 +32,5 @@ $app->get('/login/ver', LoginController::class . ':ver');
 $app->get('/login/cerrar', LoginController::class . ':cerrar');
 // home
 $app->get('/', HomeController::class . ':index');
+// student
+$app->post('/student/update_teamviewer', StudentController::class . ':update_teamviewer');

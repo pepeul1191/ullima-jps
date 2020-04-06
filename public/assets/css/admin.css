@@ -107,3 +107,7 @@ footer > a {
 .modal-content{
   border-radius: 0px !important;
 }
+
+.alert {
+  padding: 0rem;
+}
