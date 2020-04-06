@@ -7,7 +7,7 @@ class LoginController extends \Configs\Controller
   public function index($request, $response, $args) {
     $message = $request->getQueryParam('message');
     $message_color = '';
-    if($message == ''){
+    if($message != ''){
       $message = 'El usuario ingresado no corresponde a un alumno registrado, <b>no se olvide de cerrar su sesión con Google antes de volver a intentar ingresar nuevamente</b>';
       $message_color = 'text-danger';
     }
@@ -61,7 +61,6 @@ class LoginController extends \Configs\Controller
     $logout_url = $this->constants['base_url'];
     if($_SESSION['profile'] == 'student'){
       // url for student
-      
       $logout_url = 
         'https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . 
         $this->constants['base_url'] . 'login';
