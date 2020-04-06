@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4 style="margin-bottom:15px">Detalles del Alumno</h4>
+  </div>
+  <div class="col-md-6">
+    <h5 style="margin-bottom:15px">Información del Alumno</h5>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtCode">Código</label>
+          <input type="text" class="form-control" id="txtCode" aria-describedby="txtCodeHelp" disabled placeholder="Ingrese nombre" value="<?php echo $student->code; ?>">
+          <small id="txtCodeHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="txtEmail">Correo</label>
+          <input type="text" class="form-control" id="txtEmail" aria-describedby="txtEmailHelp" disabled placeholder="Ingrese nombre" value="<?php echo $student->email; ?>">
+          <small id="txtEmailHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="txtName">Nombre</label>
+          <input type="text" class="form-control" id="txtName" aria-describedby="txtNameHelp" disabled placeholder="Ingrese nombre" value="<?php echo $student->name; ?>">
+          <small id="txtNameHelp" class="form-text"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h5 style="margin-bottom:15px">Información de Accesos Remotos</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="txtTWId">Teamviewer ID</label>
+          <input type="text" class="form-control" id="txtTWId" aria-describedby="txtTWIdHelp" placeholder="Ingrese su Teamviewer ID" value="<?php echo $student->tw_user; ?>">
+          <small id="txtTWIdHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="txtTWPass">Teamviewer Password</label>
+          <input type="text" class="form-control" id="txtTWPass" aria-describedby="txtTWPassHelp" placeholder="Ingrese su Teamviewer Password" value="<?php echo $student->tw_pass; ?>">
+          <small id="txtTWPassHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <button id="btnMap" class="btn btn-primary" style="margin-top: 23px;" onclick="guardar()">
+            <i class="fa fa-check" style="margin-right:5px"></i>
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function guardar(){
+    
+  }
+</script>

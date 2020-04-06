@@ -1,83 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo $title;?></title>
-    <meta charset="UTF-8">
-    <?php echo $csss; ?>
-    <link rel="shortcut icon" href="<?php echo $constants['static_url']; ?>favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript">
-        var BASE_URL = '<?php echo $constants['base_url'];?>';
-        var STATICS_URL  = '<?php echo $constants['static_url'];?>';
-        var MODULOS_JSON = JSON.parse('<?php echo $menu; ?>');
-        var ITEMS_JSON = JSON.parse('<?php echo $items; ?>');
-        var DATA = JSON.parse('<?php echo $data; ?>');
-        var CSRF = "<?php echo $constants['csrf']['secret']; ?>";
-        var CSRF_KEY = '<?php echo $constants['csrf']['key']; ?>';
-    </script>
+  <title><?php echo $title;?></title>
+  <meta charset="UTF-8">
+  <?php echo $csss; ?>
+  <link rel="shortcut icon" href="<?php echo $constants['static_url']; ?>favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript">
+    var BASE_URL = '<?php echo $constants['base_url'];?>';
+    var STATIC_URL  = '<?php echo $constants['static_url'];?>';
+    var CSRF = "<?php echo $constants['csrf']['secret']; ?>";
+    var CSRF_KEY = '<?php echo $constants['csrf']['key']; ?>';
+  </script>
 </head>
 <body>
-    <label id="defaultTargetMensajes"></label>
-    <!-- Inicio modal -->
-    <button type="button" class="btn btn-primary btn-lg oculto" data-toggle="modal" data-target="#modal-container" id="btnModal">Launch demo modal</button>
-    <div class="modal fade" id="modal-container" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Carousel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
     </div>
-    <!-- Fin modal -->
-    <div id="app"></div>
-    <!-- Handlebars Templates -->
-    <script id="template" type="text/x-handlebars-template">
-      {{> header}}
-      {{> breadcrumb}}
-      {{> contenido}}
-      {{> footer}}
-    </script>
-    <script id="header-template" type="text/x-handlebars-template">
-      <header>
-        <a href="{{BASE_URL}}">Inicio</a>
-        <a href="{{BASE_URL}}ayuda">Ayuda</a>
-        <a href="{{BASE_URL}}login/ver" class="pull-right">Pepe Valdivia</a>
-        <a href="{{BASE_URL}}login/cerrar" class="pull-right">Cerrar Sesión</a>
-      </header>
-    </nav>
-    <!-- Fin Header -->
-    </script>
-    <script id="breadcrumb-template" type="text/x-handlebars-template">
-      <nav>
-        <h1><i class="fa fa-pencil h1" aria-hidden="true"></i>Gestor de Contenidos - COA</h1>
-        {{{menuModulos}}}
-      </nav>
-    </script>
-    <script id="contenido-template" type="text/x-handlebars-template">
-      <div id="body-app" class="row">
-        <aside class="col-md-2">
-          {{{menuSubModulos}}}
-        </aside>
-        <section class="col-md-10" id="workspace">
-          <!-- Inicio Yield-->
-          {{> yield}}
-          <!-- Fin Yield-->
-        </section>
-      </div>
-    </script>
-    <script id="footer-template" type="text/x-handlebars-template">
-      <footer>
-        <p>Powered by: <a href="http://softweb.pe/">Software Web Perú</a> © 2011-2018 </p>
-      </footer>
-    </script>
+  </nav>
+</header>
+<div id="workspace">
