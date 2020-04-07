@@ -8,7 +8,7 @@ class LoginController extends \Configs\Controller
     $message = $request->getQueryParam('message');
     $message_color = '';
     if($message != ''){
-      $message = 'El usuario ingresado no corresponde a un alumno registrado, <b>no se olvide de cerrar su sesión con Google antes de volver a intentar ingresar nuevamente</b>';
+      $message = 'El usuario ingresado no corresponde a un alumno registrado';
       $message_color = 'text-danger';
     }
     $this->load_helper('login');

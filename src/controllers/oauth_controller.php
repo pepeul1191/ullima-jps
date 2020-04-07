@@ -53,6 +53,7 @@ class OAuthController extends \Configs\Controller
       );
     }else{
       $response = $response->withRedirect(
+        'https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . 
         $this->constants['base_url'] . 'login?message=student-not-exist'
       );
     }
