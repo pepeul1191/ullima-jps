@@ -35,3 +35,5 @@ Fuentes:
 
 + https://github.com/pepeul1191/coa-slim
 + https://github.com/Kong/unirest-php
++ https://stackoverflow.com/questions/41232178/is-the-output-of-sqlite-in-mode-insert-correct
++ https://github.com/pepeul1191/cipher-php
