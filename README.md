@@ -24,6 +24,11 @@ Migraciones con DBMATE - app:
 
 Cambiar en 'src/configs/settings.php' el valor de llave 'ambiente_csrf' y 'ambiente_session' a 'inactivo' .
 
+## Dump de datos de una tabla sqlite3
+
+sqlite> .mode insert new_table
+sqlite> select * from tbl1;
+
 ---
 
 Fuentes:
