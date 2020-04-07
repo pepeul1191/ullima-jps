@@ -23,6 +23,7 @@ return [
         'usuario' => 'admin',
         'contrasenia' => 'sistema123'
       ],
+      'key' => 'LxFV3PyEv1bhQ',
       'csrf' => [
         'secret' => 'PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L',
         'key' => 'csrf_val'

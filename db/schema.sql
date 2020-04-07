@@ -1,20 +1,4 @@
 CREATE TABLE schema_migrations (version varchar(255) primary key);
-CREATE TABLE 'users' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'user'	VARCHAR(45) NOT NULL,
-	'pass'	VARCHAR(45) NOT NULL,
-  'email'	VARCHAR(45) NOT NULL,
-  'profile'	VARCHAR(45) NOT NULL,
-  'reset_key'	VARCHAR(45) NOT NULL,
-  'activation_key'	VARCHAR(45) NOT NULL
-);
-CREATE TABLE 'logs' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  'time' DATETIME NOT NULL,
-	'action'	VARCHAR(45) NOT NULL,
-  'user_id'	INTEGER,
-  FOREIGN KEY(`user_id`) REFERENCES 'users' ( 'id' ) ON DELETE CASCADE
-);
 CREATE TABLE 'students' (
 	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'name'	VARCHAR(45) NOT NULL,
@@ -23,6 +7,25 @@ CREATE TABLE 'students' (
   'picture'	VARCHAR(150) NOT NULL,
   'tw_id' VARCHAR(30) NOT NULL,
 	'tw_pass'	VARCHAR(30) NOT NULL
+);
+CREATE TABLE 'users' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	'user'	VARCHAR(45) NOT NULL,
+	'pass'	VARCHAR(45) NOT NULL,
+  'email'	VARCHAR(45) NOT NULL,
+  'profile'	VARCHAR(45),
+  'picture'	VARCHAR(150),
+  'reset_key'	VARCHAR(45),
+  'activation_key'	VARCHAR(45),
+  'teacher_id'	INTEGER,
+  FOREIGN KEY(`teacher_id`) REFERENCES 'teachers' ( 'id' ) ON DELETE CASCADE
+);
+CREATE TABLE 'logs' (
+	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  'time' DATETIME NOT NULL,
+	'action'	VARCHAR(45) NOT NULL,
+  'user_id'	INTEGER,
+  FOREIGN KEY(`user_id`) REFERENCES 'users' ( 'id' ) ON DELETE CASCADE
 );
 CREATE TABLE 'teachers' (
 	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -74,9 +77,9 @@ INSERT INTO schema_migrations (version) VALUES
   ('20200405013738'),
   ('20200405013744'),
   ('20200405014441'),
-  ('20200406214421'),
   ('20200406215208'),
   ('20200406232508'),
   ('20200406232957'),
   ('20200406235605'),
-  ('20200406235610');
+  ('20200406235610'),
+  ('20200407025949');

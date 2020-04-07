@@ -20,6 +20,7 @@ class HomeController extends \Configs\Controller
       return $view($response, 'app', 'home/' . $_SESSION['profile'] . '.phtml', $locals);
     }elseif($_SESSION['profile'] == 'teacher'){
       # TODO
+      return $view($response, 'app', 'home/' . $_SESSION['profile'] . '.phtml', $locals);
     }
   }
 }

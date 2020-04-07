@@ -20,7 +20,7 @@ if ( ! function_exists('encrypt'))
 if ( ! function_exists('decrypt'))
 {
   function decrypt($key, $value){
-    rtrim(
+    return rtrim(
       mcrypt_decrypt(
         MCRYPT_RIJNDAEL_256, 
         md5($key), 
