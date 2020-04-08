@@ -146,6 +146,7 @@ class LoginController extends \Configs\Controller
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
         $dotenv->load();
         // server settings
+        $mail->CharSet = 'UTF-8';
         $mail->SMTPDebug = 0;
         $mail->isSMTP();
         $mail->Debugoutput = 'html';
@@ -215,5 +216,34 @@ class LoginController extends \Configs\Controller
     // destroy session
     session_destroy();
     return $response->withRedirect($logout_url);
+  }
+
+  public function change_password($request, $response, $args){
+    $user = \Model::factory('\Models\User', 'app')
+      ->where('id', $request->getQueryParam('user_id'))
+      ->where('reset_key', $request->getQueryParam('reset_key'))
+      ->find_one();
+    if($user == false){
+      $status = 404;
+      $response->withStatus(404);
+      $response = $response->withRedirect($this->constants['base_url'] . 'error/access/404');
+      return $response;
+    }else{
+      $this->load_helper('login');
+      $rpta = '';
+      $status = 200;
+      $locals = [
+        'constants' => $this->constants,
+        'title' => 'Login',
+        'csss' => $this->load_css(index_css($this->constants)),
+        'jss'=> $this->load_js(index_js($this->constants)),
+        'message_color' => '',
+        'message' => '',
+        'user_id' => $request->getQueryParam('user_id'),
+        'reset_key' => $request->getQueryParam('reset_key'),
+      ];
+      $view = $this->container->view;
+      return $view($response, 'blank', 'login/reset.phtml', $locals);
+    }
   }
 }

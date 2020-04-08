@@ -29,6 +29,12 @@ Cambiar en 'src/configs/settings.php' el valor de llave 'ambiente_csrf' y 'ambie
 sqlite> .mode insert new_table
 sqlite> select * from tbl1;
 
+## .env
+
+GMAIL_USER="xyz@gmail.com"
+
+GMAIL_PASS="passxyz"
+
 ---
 
 Fuentes:
