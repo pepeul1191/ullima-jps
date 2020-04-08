@@ -24,3 +24,6 @@ public/uploads
 public/templates
 npm-debug.log
 package-lock.json
+
+## secrets
+.env

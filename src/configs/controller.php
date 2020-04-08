@@ -34,4 +34,8 @@ class Controller
     }
     return $rpta;
   }
+
+  function get_mail_layout($layout){
+    return require __DIR__ . '/../templates/mails/' . $layout . '.phtml';
+  }
 }

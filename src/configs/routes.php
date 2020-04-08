@@ -27,7 +27,7 @@ $app->post('/login/sign_in', LoginController::class . ':sign_in');
 $app->get('/login/sign_up', LoginController::class . ':sign_up');
 $app->post('/login/sign_up', LoginController::class . ':sign_up');
 $app->get('/login/password', LoginController::class . ':password');
-$app->post('/login/password', LoginController::class . ':password');
+$app->post('/login/reset', LoginController::class . ':reset');
 $app->get('/login/ver', LoginController::class . ':ver');
 $app->get('/login/sign_out', LoginController::class . ':sign_out');
 // home

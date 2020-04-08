@@ -1,6 +1,8 @@
 <?php
 
 namespace Controller;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class LoginController extends \Configs\Controller
 {
@@ -92,6 +94,110 @@ class LoginController extends \Configs\Controller
     ];
     $view = $this->container->view;
     return $view($response, 'blank', 'login/password.phtml', $locals);
+  }
+
+  public function reset($request, $response, $args){
+    $this->load_helper('login');
+    // get user from password
+    $user = \Model::factory('\Models\User', 'app')
+      ->where('email', $request->getParam('email'))
+      ->find_one();
+    // if user not exist
+    if($user == false){
+      $locals = [
+        'constants' => $this->constants,
+        'title' => 'Login',
+        'csss' => $this->load_css(index_css($this->constants)),
+        'jss'=> $this->load_js(index_js($this->constants)),
+        'message_color' => 'text-danger',
+        'message' => 'Correo ingresado no se encuentra registrado',
+      ];
+      $view = $this->container->view;
+      $response->withStatus(500);
+      return $view($response, 'blank', 'login/password.phtml', $locals);
+    }else{
+      // change users's reset_key
+      $this->load_helper('random');
+      $reset_key = string_num(30);
+      $user->reset_key = $reset_key;
+      $user->save();
+      // make link
+      $url = 
+        $this->constants['base_url'] . 
+        'login/change_password?user_id=' . 
+        $user->id . '&reset_key=' . $reset_key;
+      // send email
+      $layout = $this->get_mail_layout('reset_password');
+      $base_url = $this->constants['base_url'];
+      $favicon = $this->constants['static_url'] . 'favicon.ico';
+      $data_layout = array(
+        '%url' => $url, 
+        '%base_url' => $base_url,
+        '%favicon' => $favicon,
+      );
+      $message = str_replace(
+        array_keys($data_layout), 
+        array_values($data_layout), 
+        $layout
+      );
+      $mail = new PHPMailer(true);
+      try {
+        // load .env
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+        $dotenv->load();
+        // server settings
+        $mail->SMTPDebug = 0;
+        $mail->isSMTP();
+        $mail->Debugoutput = 'html';
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $_ENV['GMAIL_USER'];
+        $mail->Password = $_ENV['GMAIL_PASS'];
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+        // recipients
+        $mail->setFrom(
+          'support@softweb.pe', 
+          'Soporte Software Web Perú'
+        );
+        $mail->addAddress(
+          $request->getParam('email'), 
+          ''
+        );
+        // content
+        $mail->isHTML(true);
+        $mail->Subject = 'Solicitud de Cambio de Contraseña';
+        $mail->Body = $message;
+        // send
+        $mail->send();
+      } catch (Exception $e) {
+        // echo 'Message could not be sent.';
+        // echo 'Mailer Error: ' . $mail->ErrorInfo;
+        $locals = [
+          'constants' => $this->constants,
+          'title' => 'Login',
+          'csss' => $this->load_css(index_css($this->constants)),
+          'jss'=> $this->load_js(index_js($this->constants)),
+          'message_color' => 'text-danger',
+          'message' => 'Ha ocurrido un error en enviar la solicitud de cambio a su correo.',
+        ];
+        $view = $this->container->view;
+        $response->withStatus(500);
+        return $view($response, 'blank', 'login/password.phtml', $locals);
+      }
+      // send message to view
+      $locals = [
+        'constants' => $this->constants,
+        'title' => 'Login',
+        'csss' => $this->load_css(index_css($this->constants)),
+        'jss'=> $this->load_js(index_js($this->constants)),
+        'message_color' => 'text-success',
+        'message' => 'Se ha enviado la solicitud de cambio de contraseña a su correo.',
+      ];
+      $view = $this->container->view;
+      $response->withStatus(200);
+      return $view($response, 'blank', 'login/password.phtml', $locals);
+    }
   }
 
   public function sign_out($request, $response, $args) {
