@@ -224,7 +224,6 @@ class LoginController extends \Configs\Controller
       ->where('reset_key', $request->getQueryParam('reset_key'))
       ->find_one();
     if($user == false){
-      $status = 404;
       $response->withStatus(404);
       $response = $response->withRedirect($this->constants['base_url'] . 'error/access/404');
       return $response;
@@ -245,5 +244,56 @@ class LoginController extends \Configs\Controller
       $view = $this->container->view;
       return $view($response, 'blank', 'login/reset.phtml', $locals);
     }
+  }
+
+  public function change($request, $response, $args){
+    $user = \Model::factory('\Models\User', 'app')
+      ->where('id', $request->getParam('user_id'))
+      ->where('reset_key', $request->getParam('key'))
+      ->find_one();
+    if($user == false){
+      $response->withStatus(404);
+      $response = $response->withRedirect($this->constants['base_url'] . 'error/access/404');
+      return $response;
+    }else{
+      // pass1 and pass2 must be the same
+      if(
+        $request->getParam('pass1') == $request->getParam('pass2')
+      ){
+        $this->load_helper('cipher');
+        $this->load_helper('random');
+        $this->load_helper('login');
+        $user->pass = encrypt(
+          $this->constants['key'],
+          $request->getParam('pass1')
+        );
+        $user->reset_key = string_num(30);
+        $user->save();
+        $locals = [
+          'constants' => $this->constants,
+          'title' => 'Login',
+          'csss' => $this->load_css(index_css($this->constants)),
+          'jss'=> $this->load_js(index_js($this->constants)),
+          'message_color' => 'text-success',
+          'message' => 'Contraseña actualizada',
+        ];
+        $view = $this->container->view;
+        return $view($response, 'blank', 'login/index.phtml', $locals);
+      }else{
+        $this->load_helper('login');
+        $locals = [
+          'constants' => $this->constants,
+          'title' => 'Login',
+          'csss' => $this->load_css(index_css($this->constants)),
+          'jss'=> $this->load_js(index_js($this->constants)),
+          'message_color' => 'text-danger',
+          'message' => 'Contraseñas no coinciden.',
+          'user_id' => $request->getParam('user_id'),
+          'reset_key' => $request->getParam('key'),
+        ];
+        $view = $this->container->view;
+        return $view($response, 'blank', 'login/reset.phtml', $locals);
+      }
+    }  
   }
 }

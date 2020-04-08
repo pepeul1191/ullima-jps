@@ -1,23 +1,23 @@
-<form class="form-signin" action="/login/sign_up" method="post">
+<form class="form-signin" action="/login/change" method="post">
   <h1 class="h3 mb-3 font-weight-normal">Cambiar Contraseña</h1>
   <input type="hidden" name="key" value="value">
   <span class="extraData"></span>
   <!--USER -->
   <label for="user" class="sr-only d-none">User</label>
   <input type="hidden" id="user" class="form-control d-none" placeholder="Usuario" required="" autofocus="" name="user_id" value="<?php echo $user_id; ?>">
-  <input type="hidden" id="key" class="form-control d-none" placeholder="key" required="" autofocus="" name="user_id" value="<?php echo $reset_key; ?>">
+  <input type="hidden" id="key" class="form-control d-none" placeholder="key" required="" autofocus="" name="key" value="<?php echo $reset_key; ?>">
   <!--CSRF -->
   <input type="hidden" name="<?php echo $constants['csrf']['key']; ?>" value="<?php echo $constants['csrf']['secret']; ?>">
   <!--PASS -->
   <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" id="inputPassword" class="form-control" placeholder="Nueva Contraseña" required="" name="password">
+  <input type="password" id="inputPassword" class="form-control" placeholder="Nueva Contraseña" required="" name="pass1">
   <!--PASS2 -->
   <label for="inputPassword2" class="sr-only">Password</label>
-  <input type="password" id="inputPassword2" class="form-control" placeholder="Repetir Contraseña" required="" name="password">
+  <input type="password" id="inputPassword2" class="form-control" placeholder="Repetir Contraseña" required="" name="pass2">
   <!--MESSAGE-->
   <p class="<?php echo $message_color; ?> message" style="margin-top:10px;" id="login-message"><?php echo $message; ?></p>
   <!--BUTTON -->
-  <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;" onclick="return runError()">
+  <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">
     Crear
   </button>
   <!--FooTER LOGIN NAV -->
@@ -31,10 +31,3 @@
   </div>
   <p class="mt-5 mb-3 text-muted">Powered By <a href="http://softweb.pe/"> Softtware Web Perú</a> © 2017-2018</p>
 </form>
-
-<script type="text/javascript">
-  function runError(){
-    alert('Función aún no implementada');
-    return false;
-  }
-</script>
