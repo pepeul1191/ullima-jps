@@ -46,6 +46,7 @@ class LoginController extends \Configs\Controller
       $_SESSION['picture'] = $user->picture;
       $_SESSION['profile'] = 'teacher';
       $_SESSION['state'] = 'active';
+      $_SESSION['teacher_id'] = $user->teacher_id;
       $_SESSION['time'] = date('Y-m-d H:i:s');
       return $response = $response->withRedirect(
         $this->constants['base_url']
@@ -166,7 +167,7 @@ class LoginController extends \Configs\Controller
           ''
         );
         // content
-        $mail->isHTML(true);
+        $mail->IsHTML(true);
         $mail->Subject = 'Solicitud de Cambio de Contraseña';
         $mail->Body = $message;
         // send

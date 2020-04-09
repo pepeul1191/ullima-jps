@@ -28,6 +28,7 @@ return [
         'secret' => 'PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L',
         'key' => 'csrf_val'
       ],
+      'period' => '2020-I',
       'oauth' => [
         'google' => [
           'client_id' => '1044701093820-jam7g5carn4nghkkhqr75ustq0l5vrum.apps.googleusercontent.com',

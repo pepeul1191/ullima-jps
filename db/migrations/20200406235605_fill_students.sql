@@ -152,6 +152,7 @@ INSERT INTO students (id,name,code,email,picture,tw_id,tw_pass) VALUES(149,'',20
 INSERT INTO students (id,name,code,email,picture,tw_id,tw_pass) VALUES(150,'',20171497,'20171497@aloe.ulima.edu.pe','','','');
 INSERT INTO students (id,name,code,email,picture,tw_id,tw_pass) VALUES(151,'',20162554,'20162554@aloe.ulima.edu.pe','','','');
 INSERT INTO students (id,name,code,email,picture,tw_id,tw_pass) VALUES(152,'',20161401,'20161401@aloe.ulima.edu.pe','','','');
+UPDATE students SET picture = 'https://i.stack.imgur.com/ZQT8Z.png';
 
 -- migrate:down
 
