@@ -8,6 +8,7 @@ use Controller\LoginController;
 use Controller\OAuthController;
 use Controller\HomeController;
 use Controller\StudentController;
+use Controller\SectionController;
 
 // Routes
 $app->get('/demo/[{name}]', function (Request $request, Response $response, array $args) {
@@ -35,3 +36,5 @@ $app->get('/login/sign_out', LoginController::class . ':sign_out');
 $app->get('/', HomeController::class . ':index');
 // student
 $app->post('/student/update_teamviewer', StudentController::class . ':update_teamviewer');
+// section
+$app->get('/section/get_students', SectionController::class . ':get_students');

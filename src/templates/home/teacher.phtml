@@ -1,2 +1,103 @@
-<h1>Teacher</h1>
-<?php var_dump($_SESSION); ?>
+<?php //var_dump($_SESSION); ?>
+<div class="row">
+  <div class="col-md-12">
+    <h4 style="margin-bottom:15px">Detalles de las Secciones</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="sections">Secciones</label>
+      <select class="form-control" id="sections" onchange="changeSection(this.value)">
+        <option value="E"></option>
+        <?php foreach ($sections as $section): ?>
+        <option value="<?php echo $section['section_id']; ?>">
+          <?php echo $section['section_code'] . ' - ' . $section['course_name']; ?>
+        </option>
+        <?php endforeach ?>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="alert" id="message"></div>
+    <div id="table"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function changeSection(section_id){
+    if(section_id == 'E'){
+
+    }else{
+      $.ajax({
+        type: 'GET',
+        url: BASE_URL + 'section/get_students',
+        data: {
+          section_id: section_id,
+        },
+        headers: {
+          [CSRF_KEY]: CSRF,
+        },
+        async: false,
+        success: function(data){
+          var students = JSON.parse(data);
+          $('#table').empty();
+          // create table
+          var table = document.createElement('TABLE');
+          table.classList.add('table');
+          table.classList.add('table-striped');
+          // thead
+          var thead = document.createElement('THEAD');
+          var rhead = document.createElement('TR');
+          var th1 = document.createElement('TH');
+          th1.innerHTML = 'Código';
+          thead.appendChild(th1);
+          var th2 = document.createElement('TH');
+          th2.innerHTML = 'Alumno';
+          thead.appendChild(th2);
+          var th3 = document.createElement('TH');
+          th3.innerHTML = 'TW Id';
+          thead.appendChild(th3);
+          var th4 = document.createElement('TH');
+          th4.innerHTML = 'TW Password';
+          thead.appendChild(th4);
+          table.appendChild(thead);
+          // append thead
+          document.getElementById('table').appendChild(table);
+          // tobdy
+          var tbody = document.createElement('TBODY');
+          for(var i = 0; i < students.length; i++){
+            var tr = document.createElement('TR');
+            // code
+            var td1 = document.createElement('TD');
+            td1.innerHTML = students[i].code;
+            tr.appendChild(td1);
+            // name
+            var td2 = document.createElement('TD');
+            td2.innerHTML = students[i].name;
+            tr.appendChild(td2);
+            // tw_id
+            var td3 = document.createElement('TD');
+            td3.innerHTML = students[i].tw_id;
+            tr.appendChild(td3);
+            // tw_pass
+            var td4 = document.createElement('TD');
+            td4.innerHTML = students[i].tw_pass;
+            tr.appendChild(td4);
+            // append tr
+            tbody.appendChild(tr);
+          }
+          // append tbody
+          table.appendChild(tbody);
+        },
+        error: function(xhr, status, error){
+          console.error(error);
+          $('#message').removeClass('text-warning');
+				  $('#message').removeClass('text-success');
+          $('#message').addClass('text-danger');
+          $('#message').html('Ocurrió un error en actualizar la información de conexión de Teamviewer');
+        }
+      });
+    }
+  }
+</script>

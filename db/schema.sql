@@ -70,9 +70,12 @@ CREATE TABLE 'teachers_sections' (
 CREATE VIEW vw_students_sections AS
   SELECT
     S.period AS period,
+    TEA.id AS teacher_id,
+    TEA.code AS teacher_code,
+    TEA.name AS teacher_name,
     TS.section_id AS section_id,
     S.code AS section_code,
-	C.code AS course_code,
+    C.code AS course_code,
     C.name AS course_name,
     STU.code AS student_code,
     STU.name AS student_name,
@@ -84,7 +87,20 @@ CREATE VIEW vw_students_sections AS
   INNER JOIN teachers_sections TS ON S.id = TS.section_id
   INNER JOIN courses C ON S.course_id = C.id
   INNER JOIN sections_students SCT ON SCT.section_id = S.id
-  INNER JOIN students STU ON SCT.student_id = STU.id;
+  INNER JOIN students STU ON SCT.student_id = STU.id
+  INNER JOIN teachers TEA ON TS.teacher_id = TEA.id;
+CREATE VIEW vw_teachers_sections AS
+ SELECT
+    S.period AS period,
+	TEA.id AS teacher_id,
+    TS.section_id AS section_id,
+    S.code AS section_code,
+	C.code AS course_code,
+    C.name AS course_name
+  FROM sections S
+  INNER JOIN teachers_sections TS ON S.id = TS.section_id
+  INNER JOIN courses C ON S.course_id = C.id
+  INNER JOIN teachers TEA ON TS.teacher_id = TEA.id;
 -- Dbmate schema migrations
 INSERT INTO schema_migrations (version) VALUES
   ('20200405000053'),
@@ -101,4 +117,5 @@ INSERT INTO schema_migrations (version) VALUES
   ('20200406235605'),
   ('20200406235610'),
   ('20200407025949'),
-  ('20200409012755');
+  ('20200409012755'),
+  ('20200409020815');

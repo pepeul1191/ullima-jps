@@ -20,6 +20,9 @@ class HomeController extends \Configs\Controller
       return $view($response, 'app', 'home/' . $_SESSION['profile'] . '.phtml', $locals);
     }elseif($_SESSION['profile'] == 'teacher'){
       # TODO
+      $locals['sections'] = \Model::factory('\Models\VWTeacherSection', 'app')
+        ->where('teacher_id', $_SESSION['teacher_id'])
+        ->find_array();
       return $view($response, 'app', 'home/' . $_SESSION['profile'] . '.phtml', $locals);
     }
   }
