@@ -1,4 +1,4 @@
-<form class="form-signin" action="/login/sign_in" method="post">
+<form class="form-signin" action="<?php echo $constants['base_url'];?>login/sign_in" method="post">
   <h1 class="h3 mb-3 font-weight-normal">Bienvenido</h1>
   <input type="hidden" name="key" value="value">
   <span class="extraData"></span>
@@ -22,10 +22,10 @@
   </button>
   <!--FooTER LOGIN NAV -->
   <div class="link-login">
-    <a class="" href="/login/sign_up">
+    <a class="" href="<?php echo $constants['base_url'];?>login/sign_up">
       Registrarse
     </a>
-    <a id="forgotpassword" class="pull-right" href="/login/password">
+    <a id="forgotpassword" class="pull-right" href="<?php echo $constants['base_url'];?>login/password">
       Olvidó su Contraseña
     </a>
   </div>

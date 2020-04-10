@@ -46,7 +46,7 @@ if($_ENV['ENV_APP'] == 'DEV'){
   ];
 }
 
-if($_ENV['ENV'] == 'SWP'){
+if($_ENV['ENV_APP'] == 'SWP'){
   return [
     'settings' => [
       'displayErrorDetails' => true, // set to false in production
