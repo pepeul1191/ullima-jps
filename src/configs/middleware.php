@@ -5,7 +5,7 @@
 $mw_ambiente_csrf = function ($request, $response, $next) {
   $settings = require 'settings.php';
   $continuar = true;
-  if($settings['settings']['constants']['ambiente_csrf'] == 'activo'){
+  if($settings['settings']['constants']['ambiente_csrf'] == 'active'){
     if($request->getHeader($settings['settings']['constants']['csrf']['key'])[0] != 
         $settings['settings']['constants']['csrf']['secret']){
       $continuar = false;
@@ -29,9 +29,9 @@ $mw_ambiente_csrf = function ($request, $response, $next) {
 $mw_session_true = function ($request, $response, $next) {
   $settings = require 'settings.php';
   $continuar = true;
-  if($settings['settings']['constants']['ambiente_session'] == 'activo'){
-    if (array_key_exists('estado', $_SESSION)) {
-      if($_SESSION['estado'] != 'activo'){
+  if($settings['settings']['constants']['ambiente_session'] == 'active'){
+    if (array_key_exists('state', $_SESSION)) {
+      if($_SESSION['state'] != 'active'){
         $continuar = false;
       }
     }else{
@@ -51,9 +51,9 @@ $mw_session_true = function ($request, $response, $next) {
 $mw_session_false = function ($request, $response, $next) {
   $settings = require 'settings.php';
   $error = true;
-  if($settings['settings']['constants']['ambiente_session'] == 'activo'){
-    if (array_key_exists('estado', $_SESSION)) {
-      if($_SESSION['estado'] == 'activo'){
+  if($settings['settings']['constants']['ambiente_session'] == 'active'){
+    if (array_key_exists('state', $_SESSION)) {
+      if($_SESSION['state'] == 'active'){
         $error = false;
       }
     }else{

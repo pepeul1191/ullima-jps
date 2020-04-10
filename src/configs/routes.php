@@ -33,7 +33,7 @@ $app->post('/login/change', LoginController::class . ':change');
 $app->post('/login/reset', LoginController::class . ':reset');
 $app->get('/login/sign_out', LoginController::class . ':sign_out');
 // home
-$app->get('/', HomeController::class . ':index');
+$app->get('/', HomeController::class . ':index')->add($mw_session_true);;
 // student
 $app->post('/student/update_teamviewer', StudentController::class . ':update_teamviewer');
 // section
