@@ -10,6 +10,7 @@ CREATE VIEW vw_students_sections AS
     S.code AS section_code, 
     C.code AS course_code, 
     C.name AS course_name, 
+    SCT.student_id AS student_id,
     STU.code AS student_code, 
     STU.name AS student_name,
     SCT.points AS points,

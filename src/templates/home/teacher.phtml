@@ -27,7 +27,7 @@
 <script type="text/javascript">
   function changeSection(section_id){
     if(section_id == 'E'){
-
+      // none
     }else{
       $.ajax({
         type: 'GET',
@@ -61,6 +61,9 @@
           var th4 = document.createElement('TH');
           th4.innerHTML = 'TW Password';
           thead.appendChild(th4);
+          var th5 = document.createElement('TH');
+          th5.innerHTML = 'Puntajes';
+          thead.appendChild(th5);
           table.appendChild(thead);
           // append thead
           document.getElementById('table').appendChild(table);
@@ -84,6 +87,36 @@
             var td4 = document.createElement('TD');
             td4.innerHTML = students[i].tw_pass;
             tr.appendChild(td4);
+            // points
+            var td5 = document.createElement('TD');
+            var iAdd = document.createElement('i');
+            iAdd.classList.add('fa');
+            iAdd.classList.add('fa-plus');
+            iAdd.classList.add('button-points');
+            iAdd.setAttribute('aria-hidden', 'true');
+            iAdd.setAttribute('operation', 'add');
+            iAdd.setAttribute('section_id', students[i].section_id);
+            iAdd.setAttribute('student_id', students[i].student_id);
+            iAdd.setAttribute('onclick', 'studenPoints(event)');
+            var spanPoint = document.createElement('span');
+            if(students[i].points == null){
+              spanPoint.innerHTML = 0;
+            }else{
+              spanPoint.innerHTML = students[i].points;
+            }
+            var iRemove = document.createElement('i');
+            iRemove.classList.add('fa');
+            iRemove.classList.add('fa-minus');
+            iRemove.classList.add('button-points');
+            iRemove.setAttribute('aria-hidden', 'true'); 
+            iRemove.setAttribute('operation', 'remove');
+            iRemove.setAttribute('student_id', students[i].student_id);
+            iRemove.setAttribute('section_id', students[i].section_id);
+            iRemove.setAttribute('onclick', 'studenPoints(event)');
+            td5.appendChild(iRemove);
+            td5.appendChild(spanPoint);
+            td5.appendChild(iAdd);
+            tr.appendChild(td5);
             // append tr
             tbody.appendChild(tr);
           }
@@ -99,5 +132,32 @@
         }
       });
     }
+  }
+  // 
+  function studenPoints(event){
+    $.ajax({
+        type: 'POST',
+        url: BASE_URL + 'section/update_student_points',
+        data: {
+          section_id: event.target.getAttribute('section_id'),
+          student_id: event.target.getAttribute('student_id'),
+          operation: event.target.getAttribute('operation'),
+        },
+        headers: {
+          [CSRF_KEY]: CSRF,
+        },
+        async: false,
+        success: function(data){
+          var span = event.target.parentElement.children[1];
+          span.innerHTML = parseInt(data);
+        },
+        error: function(xhr, status, error){
+          console.error(error);
+          $('#message').removeClass('text-warning');
+				  $('#message').removeClass('text-success');
+          $('#message').addClass('text-danger');
+          $('#message').html('Ocurrió un error en modificar el puntaje del alumno');
+        }
+      });
   }
 </script>

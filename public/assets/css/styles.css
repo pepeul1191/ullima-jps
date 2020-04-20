@@ -72,3 +72,12 @@ footer > .container > .row > .col-md-3 > ul > li > a, .footer-copyright > b > a{
 .form-group > label{
   width: 100%;
 }
+
+.button-points{
+  margin-right: 6px;
+  margin-left: 6px;
+}
+
+.button-points:hover{
+  cursor: pointer;
+}

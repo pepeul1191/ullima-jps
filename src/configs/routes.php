@@ -38,3 +38,4 @@ $app->get('/', HomeController::class . ':index')->add($mw_session_true);;
 $app->post('/student/update_teamviewer', StudentController::class . ':update_teamviewer');
 // section
 $app->get('/section/get_students', SectionController::class . ':get_students');
+$app->post('/section/update_student_points', SectionController::class . ':update_student_points');
