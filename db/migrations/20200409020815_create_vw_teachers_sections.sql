@@ -3,10 +3,11 @@
 CREATE VIEW vw_teachers_sections AS
  SELECT 
     S.period AS period,
-	TEA.id AS teacher_id,
+	  TEA.id AS teacher_id,
+    TEA.name AS teacher_name,
     TS.section_id AS section_id, 
     S.code AS section_code, 
-	C.code AS course_code, 
+	  C.code AS course_code, 
     C.name AS course_name 
   FROM sections S
   INNER JOIN teachers_sections TS ON S.id = TS.section_id 

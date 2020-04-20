@@ -12,6 +12,7 @@ CREATE VIEW vw_students_sections AS
     C.name AS course_name, 
     STU.code AS student_code, 
     STU.name AS student_name,
+    SCT.points AS points,
     STU.picture AS picture,
     STU.email AS student_email,
     STU.tw_id AS tw_id,
